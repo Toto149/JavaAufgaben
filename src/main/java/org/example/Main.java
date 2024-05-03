@@ -5,8 +5,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        final String KEY = "OCULORHINOLARINGOLOGY";
+        System.out.println("Encode Caesar: " + encodeCaesar("ABC", 1));
         System.out.println(decodeCaesar(encodeCaesar("ABC", 1),1));
-        System.out.println(decodeVigenere(encodeVigenere("ATTACKING TONIGHT", "OCULORHINOLARINGOLOGY"),"OCULORHINOLARINGOLOGY"));
+        System.out.println("Encode Vigenère: " + encodeVigenere("ATTACKING TONIGHT", KEY));
+        System.out.println(decodeVigenere(encodeVigenere("ATTACKING TONIGHT", KEY),KEY));
     }
 
     public static char caesarChiffre(char letter, int offset){
@@ -26,11 +29,8 @@ public class Main {
 
             chars.add(caesarChiffre(ch,offset));
         }
-        String result = "";
-        for (char ch: chars){
-            result += ch;
-        }
-        return result;
+
+        return buildStringFromCharArrayList(chars);
     }
 
     public static String decodeCaesar(String word, int offset){
@@ -39,21 +39,12 @@ public class Main {
 
             chars.add(negativeCaesarChiffre(ch,offset));
         }
-        String result = "";
-        for (char ch: chars ){
-            result += ch;
-        }
-        return result;
+        return buildStringFromCharArrayList(chars);
     }
 
-    public static List<Integer> stringToOffsetArrayForVigenere(String key){
-        char[] chars = key.toCharArray();
-        List<Integer> offsets = new ArrayList<>();
-        for(char ch : chars){
-            offsets.add(ch-65);
-        }
-        return offsets;
-    }
+
+
+
 
     public static String encodeVigenere(String word, String key){
         List<Character> chars = new ArrayList<>();
@@ -68,18 +59,13 @@ public class Main {
                 chars.add(ch);
             }
         }
-        String result = "";
-        for (char ch: chars ){
-            result += ch;
-        }
-        return result;
+        return buildStringFromCharArrayList(chars);
     }
 
     public static String decodeVigenere(String word, String key){
         List<Character> chars = new ArrayList<>();
         List<Integer> offsets = stringToOffsetArrayForVigenere(key);
         int i = 0;
-        System.out.println(offsets);
         for (char ch : word.toCharArray()){
             if(ch !=32) {
                 chars.add(negativeCaesarChiffre(ch, offsets.get(i)));
@@ -88,10 +74,26 @@ public class Main {
                 chars.add(ch);
             }
         }
-        String result = "";
-        for (char ch: chars ){
-            result += ch;
+        return buildStringFromCharArrayList(chars);
+    }
+
+
+
+    public static List<Integer> stringToOffsetArrayForVigenere(String key){
+        char[] chars = key.toUpperCase().toCharArray();
+        List<Integer> offsets = new ArrayList<>();
+        for(char ch : chars){
+            offsets.add(ch-65);
         }
-        return result;
+        return offsets;
+    }
+
+
+    private static String buildStringFromCharArrayList(List<Character> chars) {
+        StringBuilder result = new StringBuilder();
+        for (char ch: chars){
+            result.append(ch);
+        }
+        return result.toString();
     }
 }
