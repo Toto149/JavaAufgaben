@@ -15,7 +15,7 @@ public class InputValidation {
 
     public static String inputValidation(String input){
         final String ERROR = "Input Error";
-        if(!lengthOfInputStringCorrect(input)) return ERROR; //Länge des Inputs
+        if(!hasCorrectLength(input)) return ERROR; //Länge des Inputs
         if(!firstTwoCharactersAreNumbers(input)) return ERROR; //Erste beiden Character Zahlen?
         if(!allCharsAreUpperCase(input)) return ERROR; //Alle Buchstaben UpperCase?
         if(!input.contains("CHEN")) return ERROR; //Enthält "CHEN"?
@@ -24,7 +24,7 @@ public class InputValidation {
         return "OK";
     }
 
-    public static boolean lengthOfInputStringCorrect(String input){
+    public static boolean hasCorrectLength(String input){
         //Überprüft die länge des input Strings
         if(input.length()<=5){
            return false;
