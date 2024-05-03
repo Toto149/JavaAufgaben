@@ -15,12 +15,12 @@ public class InputValidation {
 
     public static String inputValidation(String input){
         final String ERROR = "Input Error";
-        if(!lengthOfInputStringCorrect(input)) return ERROR;
-        if(!firstTwoCharactersAreNumbers(input)) return ERROR;
-        if(!allCharsAreUpperCase(input)) return ERROR;
-        if(!input.contains("CHEN")) return ERROR;
-        if(!input.endsWith(":")) return ERROR;
-        if(!containsBothBracketsAndInOrder(input)) return ERROR;
+        if(!lengthOfInputStringCorrect(input)) return ERROR; //Länge des Inputs
+        if(!firstTwoCharactersAreNumbers(input)) return ERROR; //Erste beiden Character Zahlen?
+        if(!allCharsAreUpperCase(input)) return ERROR; //Alle Buchstaben UpperCase?
+        if(!input.contains("CHEN")) return ERROR; //Enthält "CHEN"?
+        if(!input.endsWith(":")) return ERROR; // Endet mit ':'?
+        if(!containsBothBracketsAndInOrder(input)) return ERROR; //Gibt es Klammern und sind diese in Reihenfolge?
         return "OK";
     }
 
