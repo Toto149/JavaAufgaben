@@ -3,12 +3,14 @@ package string_aufgaben;
 public class InputValidation {
 
     public static void main(String[] args) {
-        System.out.println(inputValidation("12(CHEN):"));
-        System.out.println(inputValidation("12(cHEN):"));
-        System.out.println(inputValidation("1c(cHEN):"));
-        System.out.println(inputValidation("1c(cHEN)d"));
-        System.out.println(inputValidation("1c)(cHEN)d"));
-        System.out.println(inputValidation("12(CHEN))(:"));
+        System.out.println("12(CHEN):   : "   + inputValidation("12(CHEN):"));
+        System.out.println("12(cHEN):   : "   + inputValidation("12(cHEN):"));
+        System.out.println("1c(cHEN):   : "   + inputValidation("1c(cHEN):"));
+        System.out.println("1c(cHEN)d   : "   + inputValidation("1c(cHEN)d"));
+        System.out.println("1c)(cHEN)d  : "  + inputValidation("1c)(cHEN)d"));
+        System.out.println("12(CHEN))(: : " + inputValidation("12(CHEN))(:"));
+        System.out.println("c2(CHEN))(: : " + inputValidation("c2(CHEN))(:"));
+        System.out.println("cd(CHEN))(: : " + inputValidation("cd(CHEN))(:"));
     }
 
     public static String inputValidation(String input){
@@ -23,16 +25,20 @@ public class InputValidation {
     }
 
     public static boolean lengthOfInputStringCorrect(String input){
+        //Überprüft die länge des input Strings
         if(input.length()<=5){
            return false;
         }
-        if(input.length()>12){
+        if(input.length()>10){
             return false;
         }
         return true;
     }
 
     public static boolean allCharsAreUpperCase(String word){
+        //Die einzigen chars die ein UpperCase haben sind Buchstaben (glaube ich), daher überprüfe ich, ob ein kleiner
+        //Buchstabe in dem input enthalten ist und wenn das der Fall ist, wird false returned.
+
         String smallLetters = "abcdefghiklmnopqrstuvwxyz";
         for(char ch : word.toCharArray()){
             if(smallLetters.contains(String.valueOf(ch))){
@@ -43,8 +49,12 @@ public class InputValidation {
     }
 
     public static boolean containsBothBracketsAndInOrder(String input){
-        if(!input.contains("(")) return false;
-        if(!input.contains(")")) return false;
+        if(!input.contains("(")) return false; //Überprüft, ob es überhaupt eine linke Klammer gibt.
+        if(!input.contains(")")) return false; //Überprüft, ob es überhaupt eine rechte Klammer gibt.
+
+        //Die Idee ist das zu keiner Zeit mehr right brackets ')' gibt als left brackets '(', daher wird später überprüft,
+        //ob die Zahl leftBracketCount kleiner ist als rightBracketCount
+
         int leftBracketCount  = 0;
         int rightBracketCount = 0;
         for(char ch : input.toCharArray()){
@@ -58,11 +68,13 @@ public class InputValidation {
                 return false;
             }
         }
-        return true;
+        return leftBracketCount==rightBracketCount; //Überprüft, ob zu jeder linken Klammer eine rechte Klammer gibt
     }
     public static boolean firstTwoCharactersAreNumbers(String input){
+        //Die Idee ist das per contains überprüft wird, ob die ersten characters des input strings zahlen sind.
+        //Daher wird hier analog wie bei dem UpperCase Fall überprüft, diesmal aber mit Zahlen.
         String numbers = "1234567890";
         if(!(numbers.contains(String.valueOf(input.charAt(0))))) return false;
-        return (numbers.contains(String.valueOf(input.charAt(1))));
+        return (numbers.contains(String.valueOf(input.charAt(1)))); //Dieser Bool wird nur returned wenn der erste char schon eine Zahl ist.
     }
 }
